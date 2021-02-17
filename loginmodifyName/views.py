@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .forms import CreateUserForm, MailForm
 from django.db import IntegrityError
+from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 
 def newsignup(request):
@@ -16,9 +17,11 @@ def newsignup(request):
                 saveuser.save()
                 return render(request, 'index.html', {"form": UserCreationForm,"user": request.POST.get('username')})
             except:
-                return render(request, 'signup.html', {"form": UserCreationForm,"error": request.POST.get('username') + " already exists !"})
+                messages.success(request, 'User Already exist!')
+                return redirect('/signup')
         else:
-            return render(request, 'signup.html', {"form": UserCreationForm,"error": "The passwords didn't Match!"})
+            messages.success(request, 'The passwords didn\'t Match!')
+            return redirect('/signup')
 
 def signin(request):
 
@@ -41,5 +44,6 @@ def signin(request):
 def accueil(request):
     if request.method == "POST":
         print("modified")
+    print(request.POST.get('user'))
     form = MailForm()
     return render(request, 'accueil.html', {"form": form})
