@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<center>
+<h1 class="display-4">Sign Up</h1>
+<hr class="my-4">
+
+<form action="" method="post" autocomplete="off">
+    {% csrf_token %}
+    <h3 style="color:red">{{error}}</h3>
+    <div class="input-group mb-3">
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+        </div>
+        {{form.username}}
+    </div>
+    <div class="input-group mb-2">
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+        </div>
+        {{form.email}}
+    </div>
+    <div class="input-group mb-2">
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-key"></i></span>
+        </div>
+        {{form.password1}}
+    </div>
+    <div class="input-group mb-2">
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-key"></i></span>
+        </div>
+        {{form.password2}}
+    </div>
+    <br>
+    <button type="submit" class="btn btn-success mb-3">Register</button>
+</form>
+
+</center>
+<script>
+
+var form_fields = document.getElementsByTagName('input')
+form_fields[1].placeholder='Username..';
+form_fields[2].placeholder='Email Address...';
+form_fields[3].placeholder='Enter password...';
+form_fields[4].placeholder='Re-enter Password...';
+
+
+for (var field in form_fields){	
+form_fields[field].className += ' form-control'
+}
+</script>
+{% endblock content %}
