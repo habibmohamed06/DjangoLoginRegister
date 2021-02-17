@@ -25,37 +25,52 @@
     <div class="container">
         <div class="col-md-10 offset-md-1 mt-5">
             <div class="jumbotron">
+                {% csrf_token %}
                 <h1>Check and modify data</h1>
                 <h3>Django Bootstrap</h3>
-                <h3>user:  {{user}}</h3>
+                <h3>username:  {{user.username}}</h3>
+                <h3>email:  {{user.email}}</h3>
                 <a href="" data-toggel="modal" data-target-></a>
 
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Modify
                 </button>
-
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modify</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modify</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="" method="post">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+                                    </div>
+                                    {{form.email}}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="modal-body">
-                        <input type="text" class="form-control" ng-model="humeur">
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="modifHumeur()">Save changes</button>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </center>
+<script>
+
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[1].placeholder='Email Address...';
+    
+    for (var field in form_fields){	
+    form_fields[field].className += ' form-control'
+    }
+    </script>
   </body>
 </html>

@@ -9,3 +9,12 @@ class CreateUserForm(UserCreationForm):
 	class Meta:
 		model = User
 		fields = ['username', 'email', 'password1', 'password2']
+
+class MailForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('email', 'username')
+        labels = {
+            'username':'Pseudo',
+            'email':'Email'
+        }

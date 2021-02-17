@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .forms import CreateUserForm
+from .forms import CreateUserForm, MailForm
 from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 
@@ -27,11 +27,9 @@ def signin(request):
         password = request.POST.get('password')
 
         user = authenticate(request, username = username, password = password)
-        emails = User.objects.filter(is_active=True).values_list('email', flat=True)
-        print(user)
         if user is not None:
             login(request, user)
-            return redirect('/accueil')
+            return redirect('/accueil', {"form": UserCreationForm,"user": user})
         else:
             return render(request, 'index.html', {"form": UserCreationForm,"error": "The username or the password is incorrect!"})
     context = {}
@@ -41,4 +39,9 @@ def signin(request):
     
 
 def accueil(request):
+    if request.method == "GET":
+        form = MailForm()
+        return render(request, 'accueil.html', {"form": form})
+    if request.method == "POST":
+        print("modified")
     return render(request, 'accueil.html')
