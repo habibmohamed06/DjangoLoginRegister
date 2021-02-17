@@ -32,7 +32,7 @@ def signin(request):
         user = authenticate(request, username = username, password = password)
         if user is not None:
             login(request, user)
-            return redirect('/accueil', {"form": UserCreationForm,"user": user})
+            return redirect('/accueil')
         else:
             return render(request, 'index.html', {"form": UserCreationForm,"error": "The username or the password is incorrect!"})
     context = {}
@@ -43,7 +43,16 @@ def signin(request):
 
 def accueil(request):
     if request.method == "POST":
-        print("modified")
-    print(request.POST.get('user'))
+        if User.objects.filter(email = request.POST.get('email')).exists():
+            messages.success(request, 'User Already exist!')
+            return redirect('/accueil')
+            return render(request, 'accueil.html', {"form": form})
+        else:
+            user = User.objects.get(email = request.user.email)
+            user.email = request.POST.get('email')
+            user.save()
+            print("modified")
+            request.user.email = request.POST.get('email')
+    print(request.user.email)
     form = MailForm()
     return render(request, 'accueil.html', {"form": form})

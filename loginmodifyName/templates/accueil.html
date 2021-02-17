@@ -21,7 +21,11 @@
                 <form method="POST">
                     {% csrf_token %}
                     <h1>Check and modify data</h1>
-                    <h3>Django Bootstrap</h3>
+                    <h3 style="color:red">
+                        {% for message in messages %}
+                            <p id="messages">{{message}}</p>
+                        {% endfor %}
+                    </h3>
                     <h3>username:  {{user.username}}</h3>
                     <h3>email:  {{user.email}}</h3>
                     <a href="" data-toggel="modal" data-target-></a>
