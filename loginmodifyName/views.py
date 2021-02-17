@@ -39,9 +39,7 @@ def signin(request):
     
 
 def accueil(request):
-    if request.method == "GET":
-        form = MailForm()
-        return render(request, 'accueil.html', {"form": form})
     if request.method == "POST":
         print("modified")
-    return render(request, 'accueil.html')
+    form = MailForm()
+    return render(request, 'accueil.html', {"form": form})
